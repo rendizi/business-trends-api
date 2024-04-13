@@ -8,6 +8,12 @@ import (
 )
 
 func Dashboard(w http.ResponseWriter, r *http.Request) {
+	key := r.URL.Query().Get("api")
+	if key == "" {
+		server.Error(map[string]interface{}{"message": "api key is empty", "status": 400}, w)
+		return
+	}
+
 	login := server.GetLogin(w, r)
 	if login == "" {
 		return
@@ -18,7 +24,7 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 		server.Error(map[string]interface{}{"message": err.Error(), "status": 400}, w)
 		return
 	}
-	url, err := chatgpt.Send(user)
+	url, err := chatgpt.Send(user, key)
 	if err != nil {
 		server.Error(map[string]interface{}{"message": err.Error(), "status": 400}, w)
 		return

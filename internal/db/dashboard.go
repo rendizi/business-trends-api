@@ -29,7 +29,7 @@ func InsertUser(user User) error {
 		user.RevenueHistory.ThreeMonthAgo + ";" + user.RevenueHistory.SixMonthAgo + ";" +
 		user.RevenueHistory.YearAgo
 	_, err := db.Exec(query,
-		user.Name, user.Surname, user.IIN, user.Direction, user.Password, user.Email,
+		user.Name, user.Surname, user.IIN, user.City, user.Direction, user.Password, user.Email,
 		user.Description, revenue)
 	if err != nil {
 		return err

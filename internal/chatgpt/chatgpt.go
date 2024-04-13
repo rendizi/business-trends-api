@@ -6,10 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/joho/godotenv"
 	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 type Response struct {
@@ -19,15 +17,9 @@ type Response struct {
 	} `json:"data"`
 }
 
-func Send(user db.User) (string, error) {
+func Send(user db.User, apiKey string) (string, error) {
 	url := "https://api.openai.com/v1/images/generations"
 
-	err := godotenv.Load()
-	if err != nil {
-		return "", err
-	}
-
-	apiKey := os.Getenv("OPENAI_API_KEY")
 	data := map[string]interface{}{
 		"model": "dall-e-3",
 		"prompt": fmt.Sprintf("Busines in %s direction. Description: %s. It is located in %s. It's revenue in last 1 year in format 1;2;3;6;12 month ago: %s. Make a prediction for it's income in next few month and build chart",
