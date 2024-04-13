@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
+	"time"
 )
 
 const (
@@ -18,6 +19,7 @@ const (
 var db *sql.DB
 
 func init() {
+	time.Sleep(1 * time.Second)
 	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
 
